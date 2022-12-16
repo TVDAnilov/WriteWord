@@ -1,0 +1,134 @@
+<div class="container">
+    <form method="post" action="" class="form_learn_new_words" style="height: 100%">
+        {% csrf_token %}
+
+
+        <div class="row justify-content-center">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="input_word_div">
+                    <div class="label_word_div input-group">
+                        <input for="input_word_learn_new" readonly class="form-control"
+                               id="input_word_learn_new_label" aria-describedby="revers_words">
+                        <button id="revers_words" onclick="button_revers_word_click()" type="button"
+                                class="btn btn-outline-primary">
+                            <svg id="reverse_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor"
+                                 class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input_word input-group">
+                        <input type="password" autocomplete="off" autocorrect="off" spellcheck="false" id="input_word_learn_new" class="form-control"
+                               aria-describedby="err_ok_prompt_new_learn_btn" onclick="input_is_invalid_click()">
+                        <button id="err_ok_prompt_new_learn_btn" type="button" onclick="button_word_click()"
+                                class="btn btn-outline-primary" type="button"> ОК
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center progress_bar_margin">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="progress ">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-label="Текущий круг"
+                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="current_round_progress"></div>
+                </div>
+                <div class="margin_top"></div>
+                <div class="progress">
+                    <div id="total_progress" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-label="Общий прогресс"
+                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="new_learn_param_part1">
+                    <div>
+                        <label for="number_repetitions_Sel">Количество повторений</label>
+                        <select name="number_repetitions_select" id="number_repetitions_Sel"
+                                onchange="select_button_click()" class="form-select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option selected value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>Текущее повторение: </span>
+                        <span id="number_repetitions_now">1</span>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="new_learn_param_part2">
+                    <div class="count_errors">
+                        <label class="form-check-label">Кол-во ошибок: </label>
+                        <span id="count_errors">0</span>
+                    </div>
+                    <div class="check_err_work">
+                        <input type="checkbox" name="word_err_checkbox" class="form-check-input" id="checkbox_err_work" checked/>
+                        <label class="form-check-label" for="checkbox_err_work">Работа над ошибками</label>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="new_words_to_learn_div">
+                    <button id="collapse_learn_words_new_btn" class="btn btn-primary form-control" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapse_learn_words_new" aria-expanded="true"
+                            aria-controls="collapse_learn_words_new">
+                        Список слов
+                    </button>
+                    <div class="collapse show" id="collapse_learn_words_new">
+                        <div class="card card-body" id="new_learn_eng_word_p">
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12  col-sm-8 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="input_word_div">
+                    <div class="label_word_div">
+                        <label for="input_word_learn_new_tranclate" class=""
+                               id="input_word_learn_new_label_tranclate"></label>
+                    </div>
+                    <div class="input_word input-group">
+                        <input type="text" id="input_word_learn_new_tranclate" class="form-control"
+                               onclick="">
+                        <button id="btn_new_tranclate" onclick="new_word_tranclste()"
+                                class="btn btn-outline-primary" type="button"> ОК
+                        </button>
+                    </div>
+                    <p id="word_list"></p>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    var url_push_new_translate = '{% url "Words_push_json_new_tranclate" %} ';
+</script>

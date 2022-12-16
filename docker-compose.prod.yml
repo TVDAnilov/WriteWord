@@ -1,0 +1,22 @@
+version: '3.10'
+
+services:
+  web:
+    build: ./djangoProject
+    command: gunicorn djangoProject.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    volumes:
+      - ./djangoProject/static/:/usr/src/staticfiles
+      - ./djangoProject/:/usr/src/djangoProject
+  nginx:
+    build: ./nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./djangoProject/static/:/usr/src/staticfiles
+    depends_on:
+      - web
+

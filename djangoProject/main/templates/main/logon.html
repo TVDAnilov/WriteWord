@@ -1,0 +1,52 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Войти
+{% endblock %}
+
+{% block content %}
+    <div class="height_wrap">
+        <div class="container centered_login">
+            <div class="row parent">
+                <form method="post" class="login_form">
+                    {% csrf_token %}
+
+                    <div class="row justify-content-center">
+                        <div class="form-error  col-md-12 col-lg-3 px-3">{{ form.non_field_errors }}</div>
+                    </div>
+
+
+                    {% for f in form %}
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-12 col-lg-3 px-3">
+                                {{ f }}
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="form-error col-md-12 col-lg-3 px-3">{{ f.errors }}</div>
+                        </div>
+
+                    {% endfor %}
+                    <div class="row justify-content-center">
+                        <div class="form-group col-md-12 col-lg-3 px-3">
+                            <button type="submit" class="btn btn-primary btn_logon">Войти</button>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-center">
+                        <div class="regisetr_link_div justify-content-center"><a href="{% url 'register' %}"
+                                                                                 class="register_link_a">Регистрация</a>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

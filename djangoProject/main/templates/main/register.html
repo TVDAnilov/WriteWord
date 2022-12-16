@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+    <div class="container centered_register">
+        <div class="row parent">
+            <form method="post" class="login_form">
+                {% csrf_token %}
+
+                {% for f in form %}
+                    <div class="row justify-content-center">
+                        <div class="form-error form-group col-md-12 col-lg-3 px-3">{{ f }}</div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="form-error col-md-12 col-lg-3 px-3">{{ f.errors }}</div>
+                    </div>
+
+                {% endfor %}
+                <div class="row justify-content-center">
+                    <div class="form-error form-group col-md-12 col-lg-3 px-3">
+                        <button type="submit" class="btn-primary btn btn_logon">Регистрация</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

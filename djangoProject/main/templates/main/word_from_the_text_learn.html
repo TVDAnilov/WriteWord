@@ -1,0 +1,37 @@
+{% extends 'main/layout.html' %}
+
+
+
+{% block title %}
+    Слова из текста
+{% endblock %}
+
+
+{% block content %}
+    {% include 'main/write_Word_Form.html' %}
+{% endblock %}
+
+
+{% load static %}
+{% block script %}
+    <script>
+        var params = window.location.search.replace('?', '').split('&').reduce(
+                function (p, e) {
+                    var a = e.split('=');
+                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                    return p;
+                },
+                {}
+            );
+
+        console.log(params['name_text']);
+
+
+        var url_get_new_words = '{% url "word_from_the_text_learn_get_json" %}' + "?name_text=" + params['name_text'];
+        var url_push_new_words = '{% url "Words_push_json_err_words" %} ';
+        var csrftoken_new_words = '{{ csrf_token }}';
+    </script>
+    <script src={% static 'main/JS/index.js' %}></script>
+{% endblock %}
+
+

@@ -1,0 +1,63 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Добавить слова
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <form method="post" action="" class="AddWordTextarea_form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-error  col-12 px-3">{{ form.non_field_errors }}</div>
+                </div>
+                <div class="row justify-content-between" id="addWord_NameText_id">
+                    <div class="form-group col-12 col-sm-12 col-md-5 col-lg-4  px-3 ">
+                        {{ form.NameText }}
+                    </div>
+
+                    {% if check_interrupt_add_words %}
+                        <div class="form-group col-12 col-sm-12 col-md-5 col-lg-4  px-3 text_right">
+                            <a class="btn btn-outline-primary contin_check_words_button"
+                               href="{% url 'AddWords_Know' %}">Продолжить
+                                проверку слов</a>
+                        </div>
+                    {% else %}
+                        <div class="form-group col-12 col-sm-12 col-md-5 col-lg-4  px-3 text_right">
+                            <button type="button" class="btn btn-outline-secondary contin_check_words_button"
+                               disabled="disabled">Продолжить
+                                проверку слов</button>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-lg-12 px-3">
+                        {{ form.Text }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-error col-12">{{ f.errors }}</div>
+                </div>
+                <div class="row justify-content-center " id="addWord_button_id">
+                    <div class="button_Wrap_form col-12 col-sm-5 col-md-3 ">
+                        <button type="submit" class="btn btn-primary">Добавить текст</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const pageHeight = document.documentElement.scrollHeight;
+        const nav_height = document.getElementById("navbar_id").scrollHeight;
+        const name_text = document.getElementById("addWord_NameText_id").scrollHeight;
+        const button = document.getElementById("addWord_button_id").scrollHeight;
+        let textarea_height = pageHeight - nav_height - name_text - button - 50;
+
+        document.getElementById('addword_textarea_id').setAttribute('style', 'height:' + textarea_height.toString() + 'px');
+    </script>
+
+{% endblock %}

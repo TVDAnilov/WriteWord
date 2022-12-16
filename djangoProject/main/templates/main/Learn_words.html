@@ -1,0 +1,24 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+Учить слова
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4  col-xl-4 col-xxl-3 choose_learn_div">
+            <ul class="ul_lean_variant">
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'LearnNewWords' %}" class="variant_learn_a">Учить новые слова</a> </li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'RepetitionPreviousWords' %}" class="variant_learn_a">Повторение предыдущих слов</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'work_on_err' %}" class="variant_learn_a">Работа над ошибками</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'Popular_words_with_errors' %}" class="variant_learn_a">Популярные слова с ошибками</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'Words_not_remembered' %} " class="variant_learn_a">Совсем плохие слова</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'learned_words_with_random' %}" class="variant_learn_a">Повторение выученных слов (рандом)</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'Repeat_by_date' %} " class="variant_learn_a">Повторение по дате</a></li>
+                <li class="variant_learn_li main_stat my-3"><a href="{% url 'Words_from_text' %} " class="variant_learn_a">Слова из текста</a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+{% endblock %}

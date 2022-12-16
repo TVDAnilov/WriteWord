@@ -1,0 +1,51 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Знаю слова
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="post" action="" class="AddWordKnowwords">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-5 col-xl-4 wrap_engwordknow">
+                    <div class="alert alert-success" role="alert">
+                        Знакомые слова пометить галочками!
+                    </div>
+
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-3 col-lg-2 wrap_engwordknow">
+                    {% for word in words %}
+                        <p>
+                                <span>
+                                    <input type="checkbox" id="{{ word.EngWord }}_xxx" name="{{ word.EngWord }}"
+                                           value="{{ word.EngWord }}">
+                                    <label for="{{ word.EngWord }}_xxx"> {{ word.EngWord }}</label>
+                                 </span>
+                            <span>({{ word.CountMeets }})</span>
+                        </p>
+
+                    {% endfor %}
+                </div>
+            </div>
+    <div class="row justify-content-center">
+        <div class="form-error col-12 col-md-5 col-lg-4"></div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-md-8 col-lg-5 col-xl-4 addWordsknow_button">
+            <button type="submit" class="btn btn-primary" name="pass">Продолжить позже</button>
+            <button type="submit" class="btn btn-primary">Перевести слова</button>
+
+        </div>
+    </div>
+    </form>
+    </div>
+    </div>
+
+
+
+{% endblock %}

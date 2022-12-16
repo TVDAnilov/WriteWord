@@ -1,0 +1,40 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Загрузка списка знакомых слов
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-7 col-md-5 col-lg-4 col-xl-3">
+                <form method="post" action="" class="Know_form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="row">
+                    <textarea class="form-control TextAreaknow" placeholder="Английские слова" required=""
+                              id="id_engWord" name="engWord"
+                    ></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-error"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-8  text_center btn_know_submit">
+                            <button type="submit" class="btn btn-primary">Добавить слова</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

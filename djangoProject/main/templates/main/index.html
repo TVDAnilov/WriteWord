@@ -1,0 +1,62 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+    <div class="container main_stat_container">
+        <div class="row justify-content-center ">
+            <div class="col-md-6 col-11 col-lg-3 px-2 main_stat ">
+                <span class="user_statistics_param_span">Выучено слов:</span>
+                <span class="user_statistics_param_value">{{ statistics.learn_words_stat }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Записано слов:</span>
+                <span class="user_statistics_param_value">{{ statistics.word_written }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Уроков начато:</span>
+                <span class="user_statistics_param_value">{{ statistics.learn_start }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Уроков закончено:</span>
+                <span class="user_statistics_param_value">{{ statistics.learn_complete }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Ошибок совершено:</span>
+                <span class="user_statistics_value_err_span">{{ statistics.Errors_total }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Ошибок в последний раз:</span>
+                <span class="user_statistics_value_err_span">{{ statistics.Errors_last_time }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Самая частая ошибка:</span>
+                <span class="user_statistics_value_err_span">{{ statistics.Errors_most }}</span></div>
+        </div>
+                <div class="row justify-content-center ">
+            <div class="col-md-6 col-11 col-lg-3 px-2 main_stat ">
+                <span class="user_statistics_param_span">Незнакомых слов:</span>
+                <span class="user_statistics_param_value">{{ statistics.Words_add }}</span></div>
+        </div>
+        <div class="row justify-content-center ">
+            <div class="col-md-6 col-11 col-lg-3 px-2 main_stat ">
+                <span class="user_statistics_param_span">Знакомых слов:</span>
+                <span class="user_statistics_param_value">{{ statistics.Words_add_know }}</span></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-3 px-2 main_stat col-11">
+                <span class="user_statistics_param_span">Текстов добавлено:</span>
+                <span class="user_statistics_param_value">{{ statistics.Text_add_count }}</span></div>
+        </div>
+
+
+    </div>
+{% endblock %}

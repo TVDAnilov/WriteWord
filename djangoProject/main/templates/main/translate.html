@@ -1,0 +1,87 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Перевод слов
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <form method="post" action="" class="TranslateForm_form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-error  col-md-12 col-lg-12 px-3"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xxl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-3">
+                    <div class="row" id="prompt_id">
+                        <div class="alert alert-success text_center prompt_translate" role="alert">
+                            Отсюда скопировать!
+                        </div>
+                    </div>
+                    <div class="row">
+                    <textarea class="form-control word_wrapper_translate_eng" placeholder="Английские слова" required=""
+                              id="id_engWord" name="engWord">{% for word  in words %}{{ word }}{% endfor %}</textarea>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div onclick="myFunction()" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-clipboard" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+
+                    </div>
+                </div>
+
+                <div class="col-xxl-3 col-lg-3 col-md-4 col-sm-5 col-5 px-3">
+                    <div class="row">
+                        <div class="alert alert-success text_center prompt_translate" role="alert">
+                            Сюда перевод!
+                        </div>
+                    </div>
+                    <div class="row">
+                    <textarea class="form-control" name="rusWord"
+                              id="id_rusWord"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-error"></div>
+            </div>
+            <div class="row justify-content-center" id="translate_button_id">
+                <div class="button_Wrap_form col-8 col-sm-5 col-md-4 col-lg-3">
+                    <button type="submit" class="btn btn-primary">Добавить перевод</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+
+        const pageHeight = document.documentElement.scrollHeight;
+        const nav_height = document.getElementById("navbar_id").scrollHeight;
+        const prompt_height = document.getElementById("prompt_id").scrollHeight;
+        const button = document.getElementById("translate_button_id").scrollHeight;
+        let textarea_height = pageHeight - nav_height - prompt_height - button - 50;
+
+        document.getElementById('id_engWord').setAttribute('style', 'height:' + textarea_height.toString() + 'px');
+        document.getElementById('id_rusWord').setAttribute('style', 'height:' + textarea_height.toString() + 'px');
+
+
+        function myFunction() {
+            /* Get the text field */
+            var copyText = document.getElementById("id_engWord");
+            /* Select the text field */
+            copyText.select();
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+        }
+    </script>
+
+
+{% endblock %}

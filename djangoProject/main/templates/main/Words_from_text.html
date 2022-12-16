@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Слова из текста
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 choose_text_div">
+                <ul>
+                    {% for text in texts %}
+                        <li class="variant_text_li"><a href="word_from_the_text?name_text={{ text }}" class="variant_text_a">{{ text }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

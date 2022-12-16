@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+
+
+
+{% block title %}
+    Повторение выученных слов (рандом)
+{% endblock %}
+
+
+{% block content %}
+    {% include 'main/write_Word_Form.html' %}
+{% endblock %}
+
+
+{% load static %}
+{% block script %}
+    <script>
+        var url_get_new_words = '{% url "learned_words_with_random_get_json" %} ';
+        var url_push_new_words = '{% url "Words_push_json_err_words" %} ';
+        var csrftoken_new_words = '{{ csrf_token }}';
+    </script>
+    <script src={% static 'main/JS/index.js' %}></script>
+{% endblock %}
+
+

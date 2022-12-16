@@ -1,0 +1,19 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Повторение по дате
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 choose_by_date_div">
+                <ul>
+                    {% for date in date_list %}
+                        <li class="variant_date_li"><a href="Repeat_by_the_date?date={{ date }}" class="variant_date_a">{{ date }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
