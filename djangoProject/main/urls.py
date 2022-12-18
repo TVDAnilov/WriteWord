@@ -34,5 +34,7 @@ urlpatterns = [
     path('RepetitionPreviousWords_get_json', RepetitionPreviousWords_get_json, name='RepetitionPreviousWords_get_json'),
     path('Words_push_json_err_words', Words_push_json_err_words,
          name='Words_push_json_err_words'),
+    path('Words_learned', words_learned, name='Words_learned'),
+    path('words_learned_get_json', words_learned_get_json, name='words_learned_get_json'),
 
 ]

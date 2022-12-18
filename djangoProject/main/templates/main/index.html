@@ -8,8 +8,9 @@
     <div class="container main_stat_container">
         <div class="row justify-content-center ">
             <div class="col-md-6 col-11 col-lg-3 px-2 main_stat ">
+                <a href="{% url 'Words_learned' %}" class="no-list">
                 <span class="user_statistics_param_span">Выучено слов:</span>
-                <span class="user_statistics_param_value">{{ statistics.learn_words_stat }}</span></div>
+                <span class="user_statistics_param_value">{{ statistics.learn_words_stat }}</span></a></div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-3 px-2 main_stat col-11">

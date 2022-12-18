@@ -37,63 +37,62 @@ def index(request):
         statistics = {}
         req_list = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(ImKnowThisWord=0)
 
-        learn_words_stat = len(
-            Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(NumberLearn__gt=0).filter(
-                WordsNotLearn=0))  # Выучено слов
-        word_written = 0  # Записано слов
-        statistic_usr = WordGeneralStatistics.objects.filter(UserName=str(request.user))  # Уроков закончено
-        learn_complete = 0  # Уроков закончено
-        Words_add = 0  # Добавлено незнакомых слов
-        Words_add_know = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(
-            ImKnowThisWord=1).count()  # добавлено знакомых слов
-        Errors_last_time = 0  # Ошибок в последний раз
-        Errors_total = 0  # Ошибок совершено
-        Errors_most = 0  # Самая частая ошибка
-        Text_add_count = 0  # Текстов добавлено
-        learn_start = 0  # Уроков начато
-        name_text = []
+        learn_words_stat = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(NumberLearn__gt=0).filter(
+            WordsNotLearn=0).count()  # Выучено слов
+    word_written = 0  # Записано слов
+    statistic_usr = WordGeneralStatistics.objects.filter(UserName=str(request.user))  # Уроков закончено
+    learn_complete = 0  # Уроков закончено
+    Words_add = 0  # Добавлено незнакомых слов
+    Words_add_know = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(
+        ImKnowThisWord=1).count()  # добавлено знакомых слов
+    Errors_last_time = 0  # Ошибок в последний раз
+    Errors_total = 0  # Ошибок совершено
+    Errors_most = 0  # Самая частая ошибка
+    Text_add_count = 0  # Текстов добавлено
+    learn_start = 0  # Уроков начато
+    name_text = []
 
-        for key in statistic_usr:
-            learn_complete = key.LearnComplete
-            Errors_last_time = key.CountErrLastTry
-            learn_start = key.StartLearn
+    for key in statistic_usr:
+        learn_complete = key.LearnComplete
+        Errors_last_time = key.CountErrLastTry
+        learn_start = key.StartLearn
 
-        for key in req_list:
-            word_written = word_written + key.CounterLearn
-            Errors_total = Errors_total + key.CountErrLastTotal
-            Errors_most_tmp = key.CountErrLastTotal
-            Words_add = Words_add + 1
+    for key in req_list:
+        word_written = word_written + key.CounterLearn
+        Errors_total = Errors_total + key.CountErrLastTotal
+        Errors_most_tmp = key.CountErrLastTotal
+        Words_add = Words_add + 1
 
-            if Errors_most < Errors_most_tmp:
-                Errors_most = Errors_most_tmp
+        if Errors_most < Errors_most_tmp:
+            Errors_most = Errors_most_tmp
 
-            name_text.append(key.NameText)
-        if Errors_most != 0:
-            Errors_most = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(
-                CountErrLastTotal=Errors_most).filter(ImKnowThisWord=0).first()
-            if Errors_most is not None:
-                Errors_most = Errors_most.EngWord
-            else:
-                Errors_most = 0
-
-        name_text = list(set(name_text))
-        Text_add_count = len(name_text)
-
-        statistics['learn_words_stat'] = learn_words_stat
-        statistics['word_written'] = word_written
-        statistics['Errors_total'] = Errors_total
-        statistics['learn_complete'] = learn_complete
-        statistics['Errors_last_time'] = Errors_last_time
-        if Errors_most == 0:
-            statistics['Errors_most'] = "Ошибок нет"
+        name_text.append(key.NameText)
+    if Errors_most != 0:
+        Errors_most = Words.objects.filter(UserName_WorldOwner=str(request.user)).filter(
+            CountErrLastTotal=Errors_most).filter(ImKnowThisWord=0).first()
+        if Errors_most is not None:
+            Errors_most = Errors_most.EngWord
         else:
-            statistics['Errors_most'] = Errors_most
-        statistics['learn_start'] = learn_start
-        statistics['Text_add_count'] = Text_add_count
-        statistics['Words_add'] = Words_add
-        statistics['Words_add_know'] = Words_add_know
+            Errors_most = 0
 
-        return render(request, 'main/index.html', {'statistics': statistics})
+    name_text = list(set(name_text))
+    Text_add_count = len(name_text)
+
+    statistics['learn_words_stat'] = learn_words_stat
+    statistics['word_written'] = word_written
+    statistics['Errors_total'] = Errors_total
+    statistics['learn_complete'] = learn_complete
+    statistics['Errors_last_time'] = Errors_last_time
+    if Errors_most == 0:
+        statistics['Errors_most'] = "Ошибок нет"
+    else:
+        statistics['Errors_most'] = Errors_most
+    statistics['learn_start'] = learn_start
+    statistics['Text_add_count'] = Text_add_count
+    statistics['Words_add'] = Words_add
+    statistics['Words_add_know'] = Words_add_know
+
+    return render(request, 'main/index.html', {'statistics': statistics})
 
 
 def learn_words(request):
@@ -155,14 +154,14 @@ def add_word_textarea(request):
                     for word_k in words_know:
                         if str(word_k).strip() == str(word.get('word')).strip():
                             dubl_bool = 1
-                            #print("слово ", str(word.get('word')).strip(), "уже в списке Know")
+                            # print("слово ", str(word.get('word')).strip(), "уже в списке Know")
                     if dubl_bool > 0:
                         continue
 
                     for dubl in duplicate:
                         if str(dubl).strip() == str(word.get('word')).strip():
                             dubl_bool = 1
-                            #print("слово ", str(word.get('word')).strip(), "уже добавлено ранее")
+                            # print("слово ", str(word.get('word')).strip(), "уже добавлено ранее")
 
                     if dubl_bool > 0:
                         continue
@@ -170,7 +169,7 @@ def add_word_textarea(request):
                     for word_irq in words_InterruptCheckWordKnow:
                         if str(word_irq).strip() == str(word.get('word')).strip():
                             dubl_bool = 1
-                            #print("слово уже в очереди на добавление")
+                            # print("слово уже в очереди на добавление")
 
                     if dubl_bool > 0:
                         continue
@@ -187,9 +186,10 @@ def add_word_textarea(request):
                     return redirect('home')
         else:
             form = AddWordsTextarea()
-            check_interrupt_add_words = InterruptCheckWordKnow.objects.filter(UserID_WorldOwner=str(request.user)).count()
+            check_interrupt_add_words = InterruptCheckWordKnow.objects.filter(
+                UserID_WorldOwner=str(request.user)).count()
 
-    return render(request, 'main/AddWords.html', {'form': form, 'check_interrupt_add_words': check_interrupt_add_words })
+    return render(request, 'main/AddWords.html', {'form': form, 'check_interrupt_add_words': check_interrupt_add_words})
 
 
 def add_words_know(request):
@@ -330,7 +330,7 @@ def Words_push_json_err_words(request):
             data = json.loads(data)
             if data.get("no_err", "not_key") == "not_key":
                 pass
-                #print("Нет ключа no_err")
+                # print("Нет ключа no_err")
             else:
                 for key in data:
                     if Words.objects.filter(EngWord=key).filter(UserName_WorldOwner=str(user)).exists():
@@ -654,4 +654,30 @@ def Repeat_by_the_date_get_json(request):
         if len(date) != 0:
             words = get_Repeat_by_the_date(request.user, date)
             WordGeneralStatistics.objects.filter(UserName=str(request.user)).update(StartLearn=F("StartLearn") + 1)
+        return JsonResponse({'words': words})
+
+
+def words_learned(request):
+    if not request.user.is_authenticated:
+        return redirect('logon')
+    else:
+        return render(request, 'main/words_learned_statistic.html')
+
+
+def get_words_learned(user):
+    words = []
+    words_1 = []
+
+    words_1 = Words.objects.filter(UserName_WorldOwner=str(user)).filter(NumberLearn__gt=0).filter(WordsNotLearn=0)
+
+    for word in words_1:
+        words.append(dict(engword=word.EngWord, rusword=word.RUSWord_value1, CountMeets=word.CountMeets))
+    return words
+
+
+def words_learned_get_json(request):
+    if not request.user.is_authenticated:
+        return JsonResponse('{}')
+    else:
+        words = get_words_learned(request.user)
         return JsonResponse({'words': words})

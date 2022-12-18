@@ -229,7 +229,7 @@ textarea {
     margin: 10px 0 5px 0;
 }
 
-.variant_learn_a, .variant_text_a, .variant_date_a {
+a {
     text-decoration: none;
 }
 
