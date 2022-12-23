@@ -681,3 +681,7 @@ def words_learned_get_json(request):
     else:
         words = get_words_learned(request.user)
         return JsonResponse({'words': words})
+
+
+def learned_words_without_translation(request):
+    return render(request, 'main/learned_words_without_translation.html')

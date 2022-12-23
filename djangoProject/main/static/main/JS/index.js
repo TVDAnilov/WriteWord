@@ -175,14 +175,17 @@ function getRndInteger(min, max) {
 }
 
 function button_word_click() {
-    var engword_input = document.getElementById('input_word_learn_new').value.toLowerCase();
-    engword_input = engword_input.trim();
+    var engword_input = document.getElementById('input_word_learn_new').value.toLowerCase().trim();
+
+    engword[index] = engword[index].toLowerCase().trim();
 
     for (let i = 0; i < errors.length; i++) {
         //console.log("errors = ", errors[i]);
     }
 
-    //console.log("index = ", index);
+    console.log("index = ", index);
+    console.log("engword_input = ", engword_input);
+    console.log("engword[index] = ", engword[index]);
     //console.log("index_round = ", index_round);
     //console.log("error_count = ", error_count);
     //console.log("errors.length = ", errors.length);

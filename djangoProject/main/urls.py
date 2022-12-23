@@ -36,5 +36,6 @@ urlpatterns = [
          name='Words_push_json_err_words'),
     path('Words_learned', words_learned, name='Words_learned'),
     path('words_learned_get_json', words_learned_get_json, name='words_learned_get_json'),
+    path('learned_words_without_translation', learned_words_without_translation, name='learned_words_without_translation'),
 
 ]
