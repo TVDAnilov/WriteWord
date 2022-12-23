@@ -266,7 +266,7 @@ a {
     text-align: left;
 }
 
-#err_ok_prompt_new_learn_btn, #revers_words{
+.err_ok_prompt_new_learn_btn, .revers_words{
     height: 40px;
     width: 50px;
 }

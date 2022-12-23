@@ -155,7 +155,7 @@ function button_word_click() {
     var engword_input = document.getElementById('input_word_learn_new').value.toLowerCase();
     engword_input = engword_input.trim();
 
-    for (let i = 0; i < errors.length; i++){
+    for (let i = 0; i < errors.length; i++) {
         //console.log("errors = ", errors[i]);
     }
 
@@ -336,3 +336,13 @@ function button_revers_word_click() {
 }
 
 addEventListener("keydown", enter_down);
+
+function button_typo_click() {
+    error_count = error_count - 1;
+    errors[index]--;
+    document.getElementById('input_word_learn_new').removeAttribute('class');
+    document.getElementById('input_word_learn_new').setAttribute('class', 'form-control');
+    document.getElementById('input_word_learn_new').value = "";
+
+    document.getElementById('count_errors').innerHTML = error_count.toString();
+}
