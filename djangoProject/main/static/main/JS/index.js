@@ -15,11 +15,12 @@ function new_word_tranclste() {
 
 
     document.getElementById('input_word_learn_new_tranclate').value = "";
-    document.getElementById('input_word_learn_new_label').value = rusword_new;
-    document.getElementById('input_word_learn_new_label').innerHTML = rusword_new;
+    document.getElementById('input_word_learn_new_tranclate').setAttribute('placeholder', rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1));
+    document.getElementById('input_word_learn_new_label').value = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
+    document.getElementById('input_word_learn_new_label').innerHTML = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
     for (var i = 0; i < span_text_new_translate.length; i++) {
         if (span_text_new_translate[i].textContent.toLowerCase().trim() === rusword[index].toLowerCase().trim()) {
-            span_text_new_translate[i].innerHTML = rusword_new;
+            span_text_new_translate[i].innerHTML = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
             break;
         }
     }
