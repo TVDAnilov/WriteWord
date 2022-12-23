@@ -32,7 +32,7 @@ DEBUG = int(os.environ.get("DEBUG", default=1))
 
 #ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'writeword.ddns.net', '127.0.0.1', 'http://192.168.1.10:8080', '95.165.89.8']
+#CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'writeword.ddns.net', '127.0.0.1', 'http://192.168.1.10:8080', '95.165.89.8']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'writeword.ddns.net', '192.168.1.10', '95.165.89.8']
 
 

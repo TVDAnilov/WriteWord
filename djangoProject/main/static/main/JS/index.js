@@ -33,6 +33,36 @@ function new_word_tranclste() {
 
 }
 
+function finaly_block() {
+    document.getElementById('input_word_learn_new').setAttribute('readonly', 'true');
+    document.getElementById('number_repetitions_Sel').setAttribute('disabled', 'true');
+    document.getElementById('checkbox_err_work').setAttribute('disabled', 'true');
+    document.getElementById('btn_new_tranclate').setAttribute('disabled', 'true');
+    document.getElementById('input_word_learn_new_tranclate').setAttribute('readonly', 'true');
+    document.getElementById('collapse_learn_words_new_btn').removeAttribute('class');
+    document.getElementById('input_word_learn_new_tranclate').removeAttribute('placeholder');
+    document.getElementById('collapse_learn_words_new_btn').setAttribute('class', 'btn btn-secondary form-control');
+
+
+
+
+
+    let OK_and_typo_button = document.getElementsByClassName('err_ok_prompt_new_learn_btn');
+    let revers_words_button = document.getElementsByClassName('revers_words');
+
+    for (let i = 0; i < OK_and_typo_button.length; i++) {
+        OK_and_typo_button[i].setAttribute('class', 'btn btn-secondary err_ok_prompt_new_learn_btn');
+        OK_and_typo_button[i].setAttribute('disabled', 'true');
+        revers_words_button[i].setAttribute('class', 'btn btn-secondary revers_words');
+        revers_words_button[i].setAttribute('disabled', 'true');
+    }
+
+
+
+
+
+}
+
 function next_Word(i, select_value) {
     var str = rusword[i];
     //console.log("rusword[i] ==", rusword[i]);
@@ -86,9 +116,7 @@ ajax_get(url_get_new_words, function (data) {
             document.getElementById("input_word_learn_new_label").value = "Новых слов нет";
             document.getElementById("collapse_learn_words_new").removeAttribute('class');
             document.getElementById("collapse_learn_words_new").setAttribute('class', 'collapse');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('class', 'btn btn-secondary');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('disabled', 'true');
-
+            finaly_block();
 
             return 0;
         } else {
@@ -278,16 +306,14 @@ function button_word_click() {
             }
             document.getElementById('input_word_learn_new').removeAttribute('class');
             document.getElementById('input_word_learn_new_label').removeAttribute('class');
-            document.getElementById('err_ok_prompt_new_learn_btn').removeAttribute('class');
-
-            document.getElementById('input_word_learn_new_label').innerHTML = "На этом все!";
-            document.getElementById('input_word_learn_new_label').value = "На этом все!";
 
             document.getElementById('input_word_learn_new').setAttribute('class', 'form-control is-valid');
             document.getElementById('input_word_learn_new_label').setAttribute('class', 'form-control is-valid');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('class', 'btn btn-secondary');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('disabled', 'true');
-            document.getElementById('input_word_learn_new').setAttribute('readonly', 'true');
+            document.getElementById('input_word_learn_new_label').innerHTML = "На этом все!";
+            document.getElementById('input_word_learn_new_label').value = "На этом все!";
+
+
+            finaly_block();
         }
 
     }
