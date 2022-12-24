@@ -1,4 +1,5 @@
-var engword = [], rusword = [], errors = [], index = 0, index_round = 1, error_count = 0, is_err_work = 0;
+var engword = [], rusword = [], errors = [], index = 0, index_round = 1, error_count = 0, is_err_work = 0,
+    is_error_just_now = 0;
 revers_word = 0;
 var select_value = 0;
 var select = document.getElementById("number_repetitions_Sel");
@@ -15,11 +16,12 @@ function new_word_tranclste() {
 
 
     document.getElementById('input_word_learn_new_tranclate').value = "";
-    document.getElementById('input_word_learn_new_label').value = rusword_new;
-    document.getElementById('input_word_learn_new_label').innerHTML = rusword_new;
+    document.getElementById('input_word_learn_new_tranclate').setAttribute('placeholder', rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1));
+    document.getElementById('input_word_learn_new_label').value = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
+    document.getElementById('input_word_learn_new_label').innerHTML = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
     for (var i = 0; i < span_text_new_translate.length; i++) {
         if (span_text_new_translate[i].textContent.toLowerCase().trim() === rusword[index].toLowerCase().trim()) {
-            span_text_new_translate[i].innerHTML = rusword_new;
+            span_text_new_translate[i].innerHTML = rusword_new.charAt(0).toUpperCase() + rusword_new.slice(1);
             break;
         }
     }
@@ -32,9 +34,33 @@ function new_word_tranclste() {
 
 }
 
+function finaly_block() {
+    document.getElementById('input_word_learn_new').setAttribute('readonly', 'true');
+    document.getElementById('number_repetitions_Sel').setAttribute('disabled', 'true');
+    document.getElementById('checkbox_err_work').setAttribute('disabled', 'true');
+    document.getElementById('btn_new_tranclate').setAttribute('disabled', 'true');
+    document.getElementById('input_word_learn_new_tranclate').setAttribute('readonly', 'true');
+    document.getElementById('collapse_learn_words_new_btn').removeAttribute('class');
+    document.getElementById('input_word_learn_new_tranclate').removeAttribute('placeholder');
+    document.getElementById('collapse_learn_words_new_btn').setAttribute('class', 'btn btn-secondary form-control');
+
+
+    let OK_and_typo_button = document.getElementsByClassName('err_ok_prompt_new_learn_btn');
+    let revers_words_button = document.getElementsByClassName('revers_words');
+
+    for (let i = 0; i < OK_and_typo_button.length; i++) {
+        OK_and_typo_button[i].setAttribute('class', 'btn btn-secondary err_ok_prompt_new_learn_btn');
+        OK_and_typo_button[i].setAttribute('disabled', 'true');
+        revers_words_button[i].setAttribute('class', 'btn btn-secondary revers_words');
+        revers_words_button[i].setAttribute('disabled', 'true');
+    }
+
+
+}
+
 function next_Word(i, select_value) {
     var str = rusword[i];
-    console.log("rusword[i] ==", rusword[i]);
+    //console.log("rusword[i] ==", rusword[i]);
     var str_eng = engword[i];
     var word_rus = str.charAt(0).toUpperCase() + str.slice(1);
     var word_eng = str_eng.charAt(0).toUpperCase() + str_eng.slice(1);
@@ -85,9 +111,7 @@ ajax_get(url_get_new_words, function (data) {
             document.getElementById("input_word_learn_new_label").value = "Новых слов нет";
             document.getElementById("collapse_learn_words_new").removeAttribute('class');
             document.getElementById("collapse_learn_words_new").setAttribute('class', 'collapse');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('class', 'btn btn-secondary');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('disabled', 'true');
-
+            finaly_block();
 
             return 0;
         } else {
@@ -109,8 +133,8 @@ ajax_get(url_get_new_words, function (data) {
 
 
 async function request(url, data, csrftoken) {
-    console.log(data);
-    console.log(JSON.stringify(data));
+    //console.log(data);
+    //console.log(JSON.stringify(data));
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -120,7 +144,7 @@ async function request(url, data, csrftoken) {
         body: data,
     })
     const result = await response.text();
-    console.log('Ответ сервера: ', result);
+    //console.log('Ответ сервера: ', result);
     return result
 }
 
@@ -128,14 +152,14 @@ async function Json_send(data) {
     const url = url_push_new_words;
     const csrftoken = csrftoken_new_words;
     const result = await request(url, data, csrftoken);
-    console.log('Ответ сервера: ', result);
+    //console.log('Ответ сервера: ', result);
 }
 
 async function Json_send_new_translate(data) {
     const url = url_push_new_translate;
     const csrftoken = csrftoken_new_words;
     const result = await request(url, data, csrftoken);
-    console.log('Ответ сервера: ', result);
+    //console.log('Ответ сервера: ', result);
 }
 
 
@@ -151,8 +175,21 @@ function getRndInteger(min, max) {
 }
 
 function button_word_click() {
-    var engword_input = document.getElementById('input_word_learn_new').value.toLowerCase();
-    engword_input = engword_input.trim();
+    var engword_input = document.getElementById('input_word_learn_new').value.toLowerCase().trim();
+
+    engword[index] = engword[index].toLowerCase().trim();
+
+    for (let i = 0; i < errors.length; i++) {
+        //console.log("errors = ", errors[i]);
+    }
+
+    console.log("index = ", index);
+    console.log("engword_input = ", engword_input);
+    console.log("engword[index] = ", engword[index]);
+    //console.log("index_round = ", index_round);
+    //console.log("error_count = ", error_count);
+    //console.log("errors.length = ", errors.length);
+    //console.log("select_value = ", select_value);
 
     if (engword_input === "") {      //подсказка
         document.getElementById('input_word_learn_new').setAttribute('placeholder', engword[index]);
@@ -160,14 +197,20 @@ function button_word_click() {
     }
 
     if (engword_input !== engword[index]) {           // Ошибка в написании is-invalid
-        document.getElementById('input_word_learn_new').removeAttribute('class');
-        document.getElementById('input_word_learn_new').setAttribute('class', 'form-control is-invalid');
-        error_count++;
-        document.getElementById('count_errors').innerHTML = error_count.toString();
-        errors[index]++;
+        if (is_error_just_now === 0) {
+            document.getElementById('input_word_learn_new').removeAttribute('class');
+            document.getElementById('input_word_learn_new').setAttribute('class', 'form-control is-invalid');
+
+
+            error_count++;
+            document.getElementById('count_errors').innerHTML = error_count.toString();
+            errors[index]++;
+        }
+        is_error_just_now = 1;
     }
 
     if (engword_input === engword[index]) {     //проверка на правильность написания прошла, все верно
+        is_error_just_now = 0;
         if (index < rusword.length - 1) {
 
             index++;
@@ -178,6 +221,8 @@ function button_word_click() {
             document.getElementById('input_word_learn_new').setAttribute('placeholder', '');
             document.getElementById('input_word_learn_new').removeAttribute('class');
             document.getElementById('input_word_learn_new').setAttribute('class', 'form-control');
+
+
 
 
             return 0;
@@ -211,7 +256,7 @@ function button_word_click() {
             document.getElementById('input_word_learn_new').value = "";
         }
 
-        if ((index === rusword.length - 1) && (select_value == index_round)) {      //закончено последнее слово
+        if ((index === rusword.length - 1) && (select_value >= index_round)) {      //закончено последнее слово
             document.getElementById('input_word_learn_new').value = "";
             document.getElementById('current_round_progress').removeAttribute('style');
             document.getElementById('current_round_progress').setAttribute('style', 'width:' + 100 + '%');
@@ -237,7 +282,7 @@ function button_word_click() {
 
             if (is_err_work === 0) {
                 const json = JSON.stringify(Object.fromEntries(word_err));
-                console.log(json);
+                //console.log(json);
                 if (revers_word === 0) {   // если перевод не перевернут
                     Json_send(json);
                 }//Отправляем слова и кол-во ошибок, далее работа над ошибками.
@@ -245,7 +290,7 @@ function button_word_click() {
             if ((document.getElementById('checkbox_err_work').checked) && (error_count !== 0)) {
 
                 index = 0;
-                index_round = 0;
+                index_round = 1;
                 error_count = 0;
                 is_err_work = 1;
                 var engword_tmp = [], rusword_tmp = [];
@@ -253,27 +298,28 @@ function button_word_click() {
                     if (errors[i] > 0) {
                         engword_tmp.push(engword[i]);
                         rusword_tmp.push(rusword[i]);
+                        errors[i] = 0;
                     }
 
                 }
                 engword = engword_tmp;
                 rusword = rusword_tmp;
+
                 select.value = 2;
+                select_value = select.value;
                 next_Word(index, select_value);
                 return 0;
             }
             document.getElementById('input_word_learn_new').removeAttribute('class');
             document.getElementById('input_word_learn_new_label').removeAttribute('class');
-            document.getElementById('err_ok_prompt_new_learn_btn').removeAttribute('class');
-
-            document.getElementById('input_word_learn_new_label').innerHTML = "На этом все!";
-            document.getElementById('input_word_learn_new_label').value = "На этом все!";
 
             document.getElementById('input_word_learn_new').setAttribute('class', 'form-control is-valid');
             document.getElementById('input_word_learn_new_label').setAttribute('class', 'form-control is-valid');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('class', 'btn btn-secondary');
-            document.getElementById('err_ok_prompt_new_learn_btn').setAttribute('disabled', 'true');
-            document.getElementById('input_word_learn_new').setAttribute('readonly', 'true');
+            document.getElementById('input_word_learn_new_label').innerHTML = "На этом все!";
+            document.getElementById('input_word_learn_new_label').value = "На этом все!";
+
+
+            finaly_block();
         }
 
     }
@@ -283,7 +329,7 @@ function button_word_click() {
 
 function input_is_invalid_click() {
     let el = document.getElementById('input_word_learn_new');
-    el.setAttribute('type','text');
+    el.setAttribute('type', 'text');
     if (el.getAttribute('class') === 'form-control is-invalid') {
         el.value = "";
         el.removeAttribute('class');
@@ -306,7 +352,7 @@ function button_revers_word_click() {
     } else {
         revers_word = 0;
     }
-    console.log("revers_word = ", revers_word);
+    //console.log("revers_word = ", revers_word);
 
     let engword_tmp = [], rusword_tmp = [];
     for (var i = 0; i < engword.length; i++) {
@@ -322,3 +368,19 @@ function button_revers_word_click() {
 }
 
 addEventListener("keydown", enter_down);
+
+function button_typo_click() {
+    if (is_error_just_now === 1) {
+        if (error_count > 0 && errors[index] > 0) {
+            error_count = error_count - 1;
+            errors[index]--;
+        }
+    }
+    is_error_just_now = 0;
+
+    document.getElementById('input_word_learn_new').removeAttribute('class');
+    document.getElementById('input_word_learn_new').setAttribute('class', 'form-control');
+    document.getElementById('input_word_learn_new').value = "";
+
+    document.getElementById('count_errors').innerHTML = error_count.toString();
+}

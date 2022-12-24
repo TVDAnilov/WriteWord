@@ -28,7 +28,7 @@ SECRET_KEY = get_random_secret_key()
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=1))
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
 #ALLOWED_HOSTS = ['*']
 
